@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apis = {
   development: "http://localhost:3020/api",
-  production: "https://git.heroku.com/finalironlibrary.git/api",
+  production: "https://finalironlibrary.herokuapp.com/api",
 };
 
 // Pré-configurando a URL padrão do nosso backend em uma instância do Axios
