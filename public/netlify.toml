@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/"
-  to = "https://finalironlibrary.netlify.app/"
+  to = "https://main--finalironlibrary.netlify.app"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
