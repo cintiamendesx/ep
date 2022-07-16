@@ -54,7 +54,7 @@ function Login(props) {
 
     <div>
       <FormControl
-        label="Emai"
+        label="E-mail"
         type="email"
         name="email"
         id="signupFormEmail"
