@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../../apis/api";
+import FormControl from "../../components/FormControl";
 
 function Signup(props) {
   const [state, setState] = useState({ name: "", password: "", email: "" });
-  const [errors, setErrors] = useState({
+  const [error, setError] = useState({
     name: null,
     email: null,
     password: null,
@@ -24,65 +25,74 @@ function Signup(props) {
 
     try {
       const response = await api.post("/signup", state);
-      setErrors({ name: "", password: "", email: "" });
+      setError({ name: "", password: "", email: "" });
       navigate("/login");
+      console.log("RESPONSA DATA", response.data);
     } catch (err) {
       if (err.response) {
         console.error(err.response);
-        return setErrors({ ...err.response.data.errors });
+        return setError({ ...err.response.data.errors });
       }
 
       console.error(err);
     }
   }
 
+
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Signup!</h1>
+<div>
+      <h1 class="col-6 py-3 " >Crie sua conta</h1>
 
-      <div>
-        <label htmlFor="signupFormName">Name</label>
-        <input
-          type="text"
-          name="name"
+      <form class="col-6" onSubmit={handleSubmit}>
+        <FormControl
+          label="Nome completo"
           id="signupFormName"
+          required
+          name="name"
+          onChange={handleChange}
           value={state.name}
-          error={errors.name}
-          onChange={handleChange}
         />
-      </div>
-
-      <div>
-        <label htmlFor="signupFormEmail">E-mail Address</label>
-        <input
+        <FormControl
           type="email"
-          name="email"
+          label="E-mail"
           id="signupFormEmail"
+          required
+          name="email"
+          onChange={handleChange}
           value={state.email}
-          error={errors.email}
-          onChange={handleChange}
+         
         />
-      </div>
 
-      <div>
-        <label htmlFor="signupFormPassword">Password</label>
-        <input
+        <FormControl
           type="password"
-          name="password"
+          label="Senha"
           id="signupFormPassword"
-          value={state.password}
-          error={errors.password}
+          required
+          name="password"
           onChange={handleChange}
+          value={state.password}
+          pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$"
+         
         />
-      </div>
 
-      <div>
-        <button type="submit">Signup!</button>
 
-        <Link to="/login">Already have an account? Click here to login.</Link>
-      </div>
-    </form>
+
+        
+<div className="mb-3">
+          <button  type="submit" className="btn btn-primary">
+          
+              <span
+                className="me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            Cadastrar
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
+
 
 export default Signup;

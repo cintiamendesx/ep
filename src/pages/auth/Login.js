@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import api from "../../apis/api";
+import FormControl from "../../components/FormControl";
 
 import { AuthContext } from "../../contexts/authContext";
 
@@ -45,41 +46,50 @@ function Login(props) {
     }
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
+  return (    
+  
+  <div className="container">
+  <form onSubmit={handleSubmit}>
+    <h1 className="titulos">Entre na sua conta</h1>
 
+    <div>
+      <FormControl
+        label="Emai"
+        type="email"
+        name="email"
+        id="signupFormEmail"
+        value={state.email}
+        error={errors.email}
+        onChange={handleChange}
+      />
+    </div>
+
+    <div>
+      <FormControl
+        label="Senha"
+        type="password"
+        name="password"
+        id="signupFormPassword"
+        value={state.password}
+        error={errors.password}
+        onChange={handleChange}
+      />
+    </div>
+
+    <div className="mb-3 d-flex">
+      <button type="submit" className="btn btn-primary me-5">
+        Entrar
+      </button>
       <div>
-        <label htmlFor="signupFormEmail">E-mail Address</label>
-        <input
-          type="email"
-          name="email"
-          id="signupFormEmail"
-          value={state.email}
-          error={errors.email}
-          onChange={handleChange}
-        />
+        <Link  className="link-cadastre me-5" to="/signup">
+           Cadastre-se!
+        </Link>
       </div>
-
-      <div>
-        <label htmlFor="signupFormPassword">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="signupFormPassword"
-          value={state.password}
-          error={errors.password}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <button type="submit">Login!</button>
-
-        <Link to="/signup">Don't have an account? Click here to signup!</Link>
-      </div>
-    </form>
-  );
+    </div>
+  </form>
+</div>
+);
 }
+
 
 export default Login;
